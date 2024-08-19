@@ -1,6 +1,6 @@
 /* add tailwindCSS directives */
-@tailwind base;
+@import 'tailwindcss/base';
 
-@tailwind components;
+@import 'tailwindcss/components';
 
-@tailwind utilities;
+@import 'tailwindcss/utilities';

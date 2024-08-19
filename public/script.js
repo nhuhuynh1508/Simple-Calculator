@@ -19,7 +19,7 @@ function addTask() {
     // Create a checkbox
     let checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
-    checkbox.className = 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500';
+    checkbox.className = 'custom-checkbox';
 
     // Create a label
     let label = document.createElement('label');
@@ -53,6 +53,13 @@ function addTask() {
     inputBox.value = '';
 }
 
+inputBox.addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        addTask();
+    }
+});
+
 checkboxList.addEventListener("click", function(e) {
     if (e.target.tagName === "INPUT" && e.target.type === "checkbox") {
         e.target.parentElement.classList.toggle("checked");
@@ -63,3 +70,17 @@ checkboxList.addEventListener("click", function(e) {
         }
     }
 });
+
+function updateTime() {
+    const timeDisplay = document.getElementById('time-display');
+    timeDisplay.textContent = moment().format('MMMM Do YYYY, h:mm:ss a');
+}
+
+// Update the time every second
+setInterval(updateTime, 1000);
+
+// Initial call to display time immediately
+updateTime();
+
+
+
