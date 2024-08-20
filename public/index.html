@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
-    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyA3ZoMAZWkVSEmLGtfMLReARa_yc8J_un7g&s">
+    <link rel="icon"
+        href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyA3ZoMAZWkVSEmLGtfMLReARa_yc8J_un7g&s">
     <link rel="stylesheet" href="output.css">
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
@@ -12,9 +14,12 @@
     <!--Add Font-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Grey+Qo&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Grey+Qo&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+        rel="stylesheet">
 
 </head>
+
 <body class="bg-gradient-to-r from-rviolet via-uviolet to-aviolet min-h-screen flex items-center justify-center">
     <div class="bg-white p-8 rounded shadow-md w-1/2 h-full">
         <!-- Time display -->
@@ -27,17 +32,36 @@
         </h1>
         <!-- Input and Button Section -->
         <div class="relative w-full">
-            <input class="bg-white border-2 border-black rounded-3xl px-4 py-4 pr-20 w-full shadow-sm focus:outline-none focus:ring-2 focus:ring-black" type="text" placeholder="Add your text..." id="input-box">
-            <button class="absolute right-0 top-1/2 transform -translate-y-1/2 h-full bg-violet-800 text-white rounded-3xl px-12 py-4 text-lg font-serif border-2 border-black hover:bg-violet-300 hover:text-black" onClick="addTask()">Add</button>
+            <input
+                class="bg-white border-2 border-black rounded-3xl px-4 py-4 pr-20 w-full shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
+                type="text" placeholder="Add your text..." id="input-box">
+            <button
+                class="absolute right-0 top-1/2 transform -translate-y-1/2 h-full bg-violet-800 text-white rounded-3xl px-12 py-4 text-lg font-serif border-2 border-black hover:bg-violet-300 hover:text-black"
+                onClick="addTask()">Add</button>
         </div>
-        
+
         <!--Task List-->
         <ul class="list-checkbox space-y-2 pt-4" id="list">
+            <li class="flex items-center bg-gray-100 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-200">
+                <input type="checkbox" class="custom-checkbox">
+                <label contenteditable="true" class="ml-3 text-lg text-gray-900">Default Task</label>
+                <span class="ml-3 text-sm text-black-500" id="created-at">
+                    <script>
+                        document.getElementById('created-at').textContent = `Created at: ${moment().format('MMMM Do YYYY, h:mm:ss a')}`;
+                    </script>
+                </span>
+
+
+
+                <span
+                    class="ml-auto cursor-pointer text-black text-2xl hover:text-red-700 font-bold remove-task">&times;</span>
+            </li>
         </ul>
 
-        
-        
+
+
     </div>
 </body>
 <script src="script.js"></script>
+
 </html>
