@@ -1,23 +1,19 @@
 const inputBox = document.getElementById("input-box");
 const checkboxList = document.getElementById("list");
-
+const creationTime = moment().format('MMMM Do YYYY, h:mm:ss a');
 
 function addTask() {
     const taskValue = inputBox.value.trim();
 
-    if (taskValue === '') {
+    if (taskValue) {
+        inputBox.value = '';
+        saveTask();
+    } else {
         alert("Write something!");
         return;
     }
 
-    // Get the current time using Moment.js
-    const creationTime = moment().format('MMMM Do YYYY, h:mm:ss a');
-
-    // create tasks
     createTicket(taskValue, creationTime);
-
-    // Clear the input field
-    inputBox.value = '';
 }
 
 function createTicket(info, creationTime) {
@@ -33,7 +29,6 @@ function createTicket(info, creationTime) {
     // Create a text label
     let label = document.createElement('label');
     label.className = 'ml-3 text-lg text-gray-900';
-    // edit text
     label.contentEditable = 'true';
     label.textContent = info;
 
@@ -48,6 +43,7 @@ function createTicket(info, creationTime) {
     removeIcon.className = 'ml-auto cursor-pointer text-black text-2xl hover:text-red-700 font-bold';
     removeIcon.addEventListener('click', function () {
         li.remove();
+        saveTask(); // Update storage after removal
     });
 
     // Append elements to the list item
@@ -60,12 +56,32 @@ function createTicket(info, creationTime) {
     checkboxList.appendChild(li);
 }
 
-// create default tasks
-createTicket("Default Task", moment().format('MMMM Do YYYY, h:mm:ss a'))
+function saveTask() {
+    let tasks = [];
+    checkboxList.querySelectorAll('li').forEach((li) => {
+        const label = li.querySelector('label');
+        if (label) {
+            tasks.push(label.textContent.trim());
+        }
+    });
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function loadTasks() {
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    tasks.forEach(task => {
+        createTicket(task, moment().format('MMMM Do YYYY, h:mm:ss a'));
+    });
+}
+
+// Create default tasks
+createTicket("Default Task", moment().format('MMMM Do YYYY, h:mm:ss a'));
+
+// Load saved tasks when page loads
+loadTasks();
 
 inputBox.addEventListener("keyup", function (event) {
     if (event.key === "Enter") {
-        // event.preventDefault();
         addTask();
     }
 });
@@ -85,11 +101,9 @@ function updateTime() {
     const timeDisplay = document.getElementById('time-display');
     timeDisplay.textContent = moment().format('MMMM Do YYYY, h:mm:ss a');
 }
+
 // Update the time every second
 setInterval(updateTime, 1000);
 
 // Initial call to display time immediately
 updateTime();
-
-
-
