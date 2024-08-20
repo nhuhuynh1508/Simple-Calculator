@@ -14,7 +14,7 @@ function addTask() {
 
     // Create a new list item
     let li = document.createElement('li');
-    li.className = 'flex items-center font-nunito bg-gray-100 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-200';
+    li.className = 'flex items-center bg-gray-100 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-200';
 
     // Create a checkbox
     let checkbox = document.createElement('input');
@@ -36,7 +36,7 @@ function addTask() {
     removeIcon.innerHTML = '&times;';
     removeIcon.className = 'ml-auto cursor-pointer text-black text-lg hover:text-red-700 font-bold';
     removeIcon.style.fontSize = '1.25rem';
-    removeIcon.addEventListener('click', function () {
+    removeIcon.addEventListener('click', function() {
         li.remove();
     });
 
@@ -53,14 +53,14 @@ function addTask() {
     inputBox.value = '';
 }
 
-inputBox.addEventListener("keyup", function (event) {
+inputBox.addEventListener("keyup", function(event) {
     if (event.key === "Enter") {
         event.preventDefault();
         addTask();
     }
 });
 
-checkboxList.addEventListener("click", function (e) {
+checkboxList.addEventListener("click", function(e) {
     if (e.target.tagName === "INPUT" && e.target.type === "checkbox") {
         e.target.parentElement.classList.toggle("checked");
         const label = e.target.nextElementSibling;
@@ -82,13 +82,5 @@ setInterval(updateTime, 1000);
 // Initial call to display time immediately
 updateTime();
 
-function saveData() {
-    localStorage.setItem("data", checkboxList.innerHTML);
-}
-
-function showTask() {
-    checkboxList.innerHTML = localStorage.getItem("data");
-}
-showTask();
 
 
