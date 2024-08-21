@@ -24,7 +24,7 @@
     <div class="bg-white p-8 rounded shadow-md w-1/2 h-full">
         <!-- Time display -->
         <div id="time-display" class="time-display"></div>
-
+    
         <!-- Your content goes here -->
         <h1 class="text-2xl text-uviolet font-bold mb-4 flex items-center">
             To-Do List
@@ -36,30 +36,51 @@
                 class="bg-white border-2 border-black rounded-3xl px-4 py-4 pr-20 w-full shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
                 type="text" placeholder="Add your text..." id="input-box">
             <button
-                class="absolute right-0 top-1/2 transform -translate-y-1/2 h-full bg-violet-800 text-white rounded-3xl px-12 py-4 text-lg font-serif border-2 border-black hover:bg-violet-300 hover:text-black"
+                class="absolute right-0 top-1/2 transform -translate-y-1/2 h-full bg-violet-800 text-white rounded-3xl px-12 py-4 text-lg font-semibold border-2 border-black hover:bg-violet-300 hover:text-black"
                 onClick="addTask()">Add</button>
         </div>
-
-        <!--Task List-->
+    
+        <!-- Task List -->
         <ul class="list-checkbox space-y-2 pt-4" id="list">
-            <li class="flex items-center bg-gray-100 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-200">
-                <input type="checkbox" class="custom-checkbox">
-                <label contenteditable="true" class="ml-3 text-lg text-gray-900">Default Task</label>
-                <span class="ml-3 text-sm text-black-500" id="created-at">
-                    <script>
-                        document.getElementById('created-at').textContent = `Created at: ${moment().format('MMMM Do YYYY, h:mm:ss a')}`;
-                    </script>
-                </span>
-
-                <span
-                    class="ml-auto cursor-pointer text-black text-2xl hover:text-red-700 font-bold remove-task">&times;
-                </span>
+            <li class="bg-gray-100 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-200">
+                <div class="flex items-center">
+                    <input type="checkbox" class="custom-checkbox">
+                    <label contenteditable="true" class="ml-3 text-lg text-gray-900">Default Task</label>
+                    <span
+                        class="ml-auto cursor-pointer text-black text-2xl hover:text-red-700 font-bold remove-task" onclick="removeTask(this)">&times;
+                    </span>
+                </div>
+                <span class="ml-6 text-sm text-black-500 block" id="created-at"></span>
+                <script>
+                    document.getElementById('created-at').textContent = `Created at: ${moment().format('MMMM Do YYYY, h:mm:ss a')}`;
+                </script>
             </li>
         </ul>
-
-
-
+    
+        <!-- Erase All button -->
+        <div class="mt-4 flex justify-end">
+            <button class="text-white border-2 border-black bg-red-500 rounded-full px-6 py-2 text-lg font-semibold hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-800"
+                onclick="eraseAllTasks()">
+                Erase All
+            </button>
+        </div>
+    
     </div>
+    
+    <script>
+        function removeTask(element) {
+            const taskItem = element.parentElement.parentElement;
+            taskItem.remove();
+            saveTask(); // Save changes to local storage after removal
+        }
+    
+        function eraseAllTasks() {
+            const checkboxList = document.getElementById('list');
+            checkboxList.innerHTML = ""; // Clear all tasks from the DOM
+            localStorage.removeItem('tasks'); // Remove all tasks from local storage
+        }
+    </script>
+    
 </body>
 <script src="script.js"></script>
 

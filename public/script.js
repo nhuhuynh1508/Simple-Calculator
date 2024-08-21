@@ -19,7 +19,11 @@ function addTask() {
 function createTicket(info, creationTime) {
     // Create a new list item
     let li = document.createElement('li');
-    li.className = 'flex items-center bg-gray-100 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-200';
+    li.className = 'bg-gray-100 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-200';
+
+    // Create a div to hold the checkbox, label, and remove icon
+    let div = document.createElement('div');
+    div.className = 'flex items-center';
 
     // Create a checkbox
     let checkbox = document.createElement('input');
@@ -32,28 +36,38 @@ function createTicket(info, creationTime) {
     label.contentEditable = 'true';
     label.textContent = info;
 
-    // Create a timestamp element
-    let timestamp = document.createElement('span');
-    timestamp.className = 'ml-3 text-sm text-black-500';
-    timestamp.textContent = `Created at: ${creationTime}`;
-
     // Create a remove icon
     let removeIcon = document.createElement('span');
     removeIcon.innerHTML = '&times;';
-    removeIcon.className = 'ml-auto cursor-pointer text-black text-2xl hover:text-red-700 font-bold';
+    removeIcon.className = 'ml-auto cursor-pointer text-black text-2xl hover:text-red-700 font-bold remove-task';
     removeIcon.addEventListener('click', function () {
         li.remove();
         saveTask(); // Update storage after removal
     });
 
-    // Append elements to the list item
-    li.appendChild(checkbox);
-    li.appendChild(label);
+    // Append checkbox, label, and remove icon to the div
+    div.appendChild(checkbox);
+    div.appendChild(label);
+    div.appendChild(removeIcon);
+
+    // Append the div to the list item
+    li.appendChild(div);
+
+    // Create a timestamp element
+    let timestamp = document.createElement('span');
+    timestamp.className = 'ml-6 text-sm text-black-500 block';
+    timestamp.textContent = `Created at: ${creationTime}`;
+
+    // Append the timestamp to the list item, after the div
     li.appendChild(timestamp);
-    li.appendChild(removeIcon);
 
     // Append the list item to the list
     checkboxList.appendChild(li);
+}
+
+function eraseAllTasks() {
+    checkboxList.innerHTML = "";
+    localStorage.removeItem('tasks');
 }
 
 function saveTask() {
