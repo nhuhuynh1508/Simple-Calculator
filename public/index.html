@@ -23,12 +23,8 @@
 <body class="bg-gradient-to-r from-rviolet via-uviolet to-aviolet min-h-screen">
     <div class="container">
         <div class="bg-white p-8 mr-12 rounded shadow-md w-1/2 h-auto">
-        <div>
             <!-- Time display -->
             <div id="time-display" class="time-display"></div>
-
-            <!-- Display Count
-            <div id="task-count" class="text-xl">Tasks: 0</div> -->
 
             <!-- Your content goes here -->
             <h1 class="text-2xl text-uviolet font-bold mb-4 flex items-center">
@@ -36,10 +32,6 @@
                 <img src="https://cdn-icons-png.flaticon.com/512/4697/4697260.png" alt="List Icon"
                 class="ml-2 h-12 w-12">
             </h1>
-        </div>
-
-            
-
             <!-- Input and Button Section -->
             <div class="relative w-auto">
                 <input
@@ -52,7 +44,7 @@
 
             <!-- Task List -->
             <ul class="list-checkbox space-y-2 pt-4" id="list">
-                <!-- <li class="bg-gray-100 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-200">
+                <li class="bg-gray-100 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-200">
                     <div class="flex items-center">
                         <input type="checkbox" class="custom-checkbox">
                         <label contenteditable="true" class="ml-3 text-lg text-gray-900">Default Task</label>
@@ -64,17 +56,6 @@
                     <script>
                         document.getElementById('created-at').textContent = `Created at: ${moment().format('MMMM Do YYYY, h:mm:ss a')}`;
                     </script>
-                </li> -->
-
-                <!-- Calculation and Result Display -->
-                <!-- Calculation Item -->
-                <li class="bg-gray-100 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-200">
-                    <div class="flex items-center">
-                        <span class="ml-3 text-lg text-gray-900 font-semibold" id="calc-full-expression">Expression:</span>
-                    </div>
-                    <div class="flex items-center">
-                        <span class="ml-3 text-lg text-gray-900 font-semibold" id="calc-result">Result:</span>
-                    </div>
                 </li>
             </ul>
 
@@ -86,8 +67,6 @@
                     Erase All
                 </button>
             </div>
-
-            
 
         </div>
 
@@ -112,36 +91,40 @@
                     <input type="text" name="display" class="w-full p-4 border rounded-lg">
                 </div>
                 <div class="grid grid-cols-4 mb-4 text-xl font-bold">
-                    <input type="button" value="AC" class="btn border rounded-lg text-gray-600 hover:bg-gray-300">
-                    <input type="button" value="DE" class="btn border rounded-lg text-gray-600 hover:bg-gray-300">
-                    <input type="button" value="." class="btn border rounded-lg text-gray-600 hover:bg-gray-300">
-                    <input type="button" value="/" class="btn border rounded-lg text-black">
+                    <input type="button" value="AC" class="btn border rounded-lg text-gray-600 hover:bg-gray-300" onclick="display.value =''">
+                    <input type="button" value="DE" class="btn border rounded-lg text-gray-600 hover:bg-gray-300" onclick="display.value = display.value.toString().slice(0,-1)">
+                    <input type="button" value="." class="btn border rounded-lg text-gray-600 hover:bg-gray-300" onclick="display.value +='.'">
+                    <input type="button" value="/" class="btn border rounded-lg text-black" 
+                    onclick="display.value +='/'">
                 </div>
                 <div class="grid grid-cols-4 mb-4 text-xl font-bold">
-                    <input type="button" value="7" class="btn border rounded-lg text-gray-700 hover:bg-gray-200">
-                    <input type="button" value="8" class="btn border rounded-lg text-gray-700 hover:bg-gray-200">
-                    <input type="button" value="9" class="btn border rounded-lg text-gray-700 hover:bg-gray-200">
-                    <input type="button" value="*" class="btn border rounded-lg text-black">
+                    <input type="button" value="7" class="btn border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value +='7'">
+                    <input type="button" value="8" class="btn border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value +='8'">
+                    <input type="button" value="9" class="btn border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value +='9'">
+                    <input type="button" value="*" class="btn border rounded-lg text-black"
+                    onclick="display.value +='*'">
                 </div>
                 <div class="grid grid-cols-4 mb-8 text-xl font-bold">
-                    <input type="button" value="4" class="btn border rounded-lg text-gray-700 hover:bg-gray-200">
-                    <input type="button" value="5" class="btn border rounded-lg text-gray-700 hover:bg-gray-200">
-                    <input type="button" value="6" class="btn border rounded-lg text-gray-700 hover:bg-gray-200">
-                    <input type="button" value="-" class="btn border rounded-lg text-black">
+                    <input type="button" value="4" class="btn border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value +='4'">
+                    <input type="button" value="5" class="btn border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value +='5'">
+                    <input type="button" value="6" class="btn border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value +='6'">
+                    <input type="button" value="-" class="btn border rounded-lg text-black"
+                    onclick="display.value +='-'">
                 </div>
                 <div class="grid grid-cols-4 mt-4 text-xl font-bold">
-                    <input type="button" value="1" class="btn border rounded-lg text-gray-700 hover:bg-gray-200">
-                    <input type="button" value="2" class="btn p-4 border rounded-lg text-gray-700 hover:bg-gray-200">
-                    <input type="button" value="3" class="btn p-4 border rounded-lg text-gray-700 hover:bg-gray-200">
-                    <input type="button" value="+" class="btn p-4 border rounded-lg text-black">
+                    <input type="button" value="1" class="btn border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value +='1'">
+                    <input type="button" value="2" class="btn p-4 border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value +='2'">
+                    <input type="button" value="3" class="btn p-4 border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value +='3'">
+                    <input type="button" value="+" class="btn p-4 border rounded-lg text-black" onclick="display.value +='+'">
                 </div>
                 <div class="grid grid-cols-4 mt-4 text-xl font-bold">
-                    <input type="button" value="00" class="border rounded-lg text-gray-700 hover:bg-gray-200">
-                    <input type="button" value="0" class="btn p-4 border rounded-lg text-gray-700 hover:bg-gray-200">
-                    <input type="button" value="=" class="btn p-4 border rounded-lg text-gray-700 hover:bg-gray-200">
+                    <input type="button" value="00" class="border rounded-lg text-gray-700 hover:bg-gray-200"
+                    onclick="display.value +='00'">
+                    <input type="button" value="0" class="btn p-4 border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value +='0'">
+                    <input type="button" value="=" class="btn p-4 border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value = eval(display.value)">
+
                 </div>
             </form>
-            
         </div>
     </div>
 
