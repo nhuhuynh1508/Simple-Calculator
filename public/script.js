@@ -128,3 +128,63 @@ setInterval(updateTime, 1000);
 
 // Initial call to display time immediately
 updateTime();
+
+function updateDisplay(value) {
+    const display = document.querySelector('input[name="display"]');
+    display.value += value;
+}
+
+function calculateResult() {
+    const display = document.querySelector('input[name="display"]');
+    let expression = display.value;
+    let result;
+
+    try {
+        result = eval(expression);
+        display.value = result; // Update the display with the result
+    } catch (error) {
+        result = "Error";
+        display.value = result; // Display "Error" if there is an invalid expression
+    }
+
+    // Automatically add the expression and result to the to-do list
+    addTask(expression);
+}
+
+function addTask(expression) {
+    const list = document.getElementById('list');
+    const listItem = document.createElement('li');
+
+    // Calculate the result of the expression
+    let result;
+    try {
+        result = eval(expression);
+    } catch (error) {
+        result = "Error";
+    }
+
+    // Add classes to the list item
+    listItem.className = 'bg-gray-100 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-200';
+
+    // Create the inner HTML structure
+    listItem.innerHTML = `
+        <div class="flex items-center">
+            <label contenteditable="true" class=" text-lg text-gray-900">Expression: ${expression}</label>
+            <span class="ml-auto cursor-pointer text-black text-2xl hover:text-red-700 font-bold remove-task" onclick="removeTask(this)">&times;</span>
+        </div>
+        <div class="ml-6 text-lg text-black-500 block">
+            Result: ${result}
+        </div>
+        <span class="ml-6 text-sm text-black-500 block" id="created-at">
+            Created at: ${moment().format('MMMM Do YYYY, h:mm:ss a')}
+        </span>
+    `;
+
+    // Append the new list item to the list
+    list.appendChild(listItem);
+}
+
+function removeTask(element) {
+    element.parentElement.parentElement.remove();
+}
+

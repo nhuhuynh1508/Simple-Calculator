@@ -57,15 +57,6 @@
                         document.getElementById('created-at').textContent = `Created at: ${moment().format('MMMM Do YYYY, h:mm:ss a')}`;
                     </script>
                 </li> -->
-
-                <!-- Calculator Result Display -->
-                <div id="calculator-result" class="mt-4 p-4 bg-gray-100 border-2 border-gray-300 rounded-lg">
-                    <div id="expression" class="text-lg font-semibold">Expression: </div>
-                    <div id="result" class="text-lg text-gray-700 mt-2">Result: </div>
-                </div>
-
-
-
             </ul>
 
             <!-- Erase All button -->
@@ -94,44 +85,40 @@
         </script>
 
         <!-- Calculator -->
+        <!-- Calculator -->
         <div class="calculator bg-white p-4 ml-32 rounded-lg shadow-md">
             <form>
                 <div class="mb-4">
                     <input type="text" name="display" class="w-full p-4 border rounded-lg">
                 </div>
                 <div class="grid grid-cols-4 mb-4 text-xl font-bold">
-                    <input type="button" value="AC" class="btn border rounded-lg text-gray-600 hover:bg-gray-300" onclick="display.value =''">
-                    <input type="button" value="DE" class="btn border rounded-lg text-gray-600 hover:bg-gray-300" onclick="display.value = display.value.toString().slice(0,-1)">
-                    <input type="button" value="." class="btn border rounded-lg text-gray-600 hover:bg-gray-300" onclick="display.value +='.'">
-                    <input type="button" value="/" class="btn border rounded-lg text-black" 
-                    onclick="display.value +='/'">
+                    <input type="button" value="AC" class="btn border rounded-lg text-gray-600 hover:bg-gray-300" onclick="document.querySelector('input[name=\'display\']').value = ''">
+                    <input type="button" value="DE" class="btn border rounded-lg text-gray-600 hover:bg-gray-300" onclick="document.querySelector('input[name=\'display\']').value = document.querySelector('input[name=\'display\']').value.toString().slice(0, -1)">
+                    <input type="button" value="." class="btn border rounded-lg text-gray-600 hover:bg-gray-300" onclick="updateDisplay('.')">
+                    <input type="button" value="/" class="btn border rounded-lg text-black" onclick="updateDisplay('/')">
                 </div>
                 <div class="grid grid-cols-4 mb-4 text-xl font-bold">
-                    <input type="button" value="7" class="btn border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value +='7'">
-                    <input type="button" value="8" class="btn border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value +='8'">
-                    <input type="button" value="9" class="btn border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value +='9'">
-                    <input type="button" value="*" class="btn border rounded-lg text-black"
-                    onclick="display.value +='*'">
+                    <input type="button" value="7" class="btn border rounded-lg text-gray-700 hover:bg-gray-200" onclick="updateDisplay('7')">
+                    <input type="button" value="8" class="btn border rounded-lg text-gray-700 hover:bg-gray-200" onclick="updateDisplay('8')">
+                    <input type="button" value="9" class="btn border rounded-lg text-gray-700 hover:bg-gray-200" onclick="updateDisplay('9')">
+                    <input type="button" value="*" class="btn border rounded-lg text-black" onclick="updateDisplay('*')">
                 </div>
                 <div class="grid grid-cols-4 mb-8 text-xl font-bold">
-                    <input type="button" value="4" class="btn border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value +='4'">
-                    <input type="button" value="5" class="btn border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value +='5'">
-                    <input type="button" value="6" class="btn border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value +='6'">
-                    <input type="button" value="-" class="btn border rounded-lg text-black"
-                    onclick="display.value +='-'">
+                    <input type="button" value="4" class="btn border rounded-lg text-gray-700 hover:bg-gray-200" onclick="updateDisplay('4')">
+                    <input type="button" value="5" class="btn border rounded-lg text-gray-700 hover:bg-gray-200" onclick="updateDisplay('5')">
+                    <input type="button" value="6" class="btn border rounded-lg text-gray-700 hover:bg-gray-200" onclick="updateDisplay('6')">
+                    <input type="button" value="-" class="btn border rounded-lg text-black" onclick="updateDisplay('-')">
                 </div>
                 <div class="grid grid-cols-4 mt-4 text-xl font-bold">
-                    <input type="button" value="1" class="btn border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value +='1'">
-                    <input type="button" value="2" class="btn p-4 border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value +='2'">
-                    <input type="button" value="3" class="btn p-4 border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value +='3'">
-                    <input type="button" value="+" class="btn p-4 border rounded-lg text-black" onclick="display.value +='+'">
+                    <input type="button" value="1" class="btn border rounded-lg text-gray-700 hover:bg-gray-200" onclick="updateDisplay('1')">
+                    <input type="button" value="2" class="btn p-4 border rounded-lg text-gray-700 hover:bg-gray-200" onclick="updateDisplay('2')">
+                    <input type="button" value="3" class="btn p-4 border rounded-lg text-gray-700 hover:bg-gray-200" onclick="updateDisplay('3')">
+                    <input type="button" value="+" class="btn p-4 border rounded-lg text-black" onclick="updateDisplay('+')">
                 </div>
                 <div class="grid grid-cols-4 mt-4 text-xl font-bold">
-                    <input type="button" value="00" class="border rounded-lg text-gray-700 hover:bg-gray-200"
-                    onclick="display.value +='00'">
-                    <input type="button" value="0" class="btn p-4 border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value +='0'">
-                    <input type="button" value="=" class="btn p-4 border rounded-lg text-gray-700 hover:bg-gray-200" onclick="display.value = eval(display.value)">
-
+                    <input type="button" value="00" class="border rounded-lg text-gray-700 hover:bg-gray-200" onclick="updateDisplay('00')">
+                    <input type="button" value="0" class="btn p-4 border rounded-lg text-gray-700 hover:bg-gray-200" onclick="updateDisplay('0')">
+                    <input type="button" value="=" class="btn p-4 border rounded-lg text-gray-700 hover:bg-gray-200" onclick="calculateResult()">
                 </div>
             </form>
         </div>
