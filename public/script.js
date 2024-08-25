@@ -1,21 +1,22 @@
 const inputBox = document.getElementById("input-box");
 const checkboxList = document.getElementById("list");
-const creationTime = moment().format('MMMM Do YYYY, h:mm:ss a');
 
+// Function to add a task
 function addTask() {
     const taskValue = inputBox.value.trim();
+    const creationTime = moment().format('MMMM Do YYYY, h:mm:ss a');
 
     if (taskValue) {
-        inputBox.value = '';
+        createTicket(taskValue, creationTime);
         saveTask();
+        inputBox.value = '';
     } else {
         alert("Write something!");
         return;
     }
-
-    createTicket(taskValue, creationTime);
 }
 
+// Function to create a task item
 function createTicket(info, creationTime) {
     // Create a new list item
     let li = document.createElement('li');
@@ -53,9 +54,9 @@ function createTicket(info, creationTime) {
     // Append the div to the list item
     li.appendChild(div);
 
-    // Create a timestamp element
+    // Create a timestamp element with a unique class
     let timestamp = document.createElement('span');
-    timestamp.className = 'ml-6 text-sm text-black-500 block';
+    timestamp.className = 'ml-6 text-sm text-black-500 block task-timestamp';
     timestamp.textContent = `Created at: ${creationTime}`;
 
     // Append the timestamp to the list item, after the div
@@ -65,34 +66,40 @@ function createTicket(info, creationTime) {
     checkboxList.appendChild(li);
 }
 
+// Function to erase all tasks
 function eraseAllTasks() {
     checkboxList.innerHTML = "";
     localStorage.removeItem('tasks');
 }
 
+// Function to save tasks to local storage
 function saveTask() {
     let tasks = [];
     checkboxList.querySelectorAll('li').forEach((li) => {
         const label = li.querySelector('label');
-        if (label) {
-            tasks.push(label.textContent.trim());
+        const timestamp = li.querySelector('.task-timestamp');
+        if (label && timestamp) {
+            tasks.push({
+                label: label.textContent.trim(),
+                timestamp: timestamp.textContent.replace('Created at: ', '').trim()
+            });
         }
     });
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
+// Function to load tasks from local storage
 function loadTasks() {
     const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     tasks.forEach(task => {
-        createTicket(task, moment().format('MMMM Do YYYY, h:mm:ss a'));
+        createTicket(task.label, task.timestamp);
     });
 }
 
-// Create default tasks
-createTicket("Default Task", moment().format('MMMM Do YYYY, h:mm:ss a'));
-
-// Load saved tasks when page loads
-loadTasks();
+// Load saved tasks when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    loadTasks();
+});
 
 inputBox.addEventListener("keyup", function (event) {
     if (event.key === "Enter") {

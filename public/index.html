@@ -44,7 +44,7 @@
 
             <!-- Task List -->
             <ul class="list-checkbox space-y-2 pt-4" id="list">
-                <li class="bg-gray-100 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-200">
+                <!-- <li class="bg-gray-100 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-200">
                     <div class="flex items-center">
                         <input type="checkbox" class="custom-checkbox">
                         <label contenteditable="true" class="ml-3 text-lg text-gray-900">Default Task</label>
@@ -56,7 +56,16 @@
                     <script>
                         document.getElementById('created-at').textContent = `Created at: ${moment().format('MMMM Do YYYY, h:mm:ss a')}`;
                     </script>
-                </li>
+                </li> -->
+
+                <!-- Calculator Result Display -->
+                <div id="calculator-result" class="mt-4 p-4 bg-gray-100 border-2 border-gray-300 rounded-lg">
+                    <div id="expression" class="text-lg font-semibold">Expression: </div>
+                    <div id="result" class="text-lg text-gray-700 mt-2">Result: </div>
+                </div>
+
+
+
             </ul>
 
             <!-- Erase All button -->
